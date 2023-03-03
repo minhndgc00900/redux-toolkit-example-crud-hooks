@@ -9,7 +9,6 @@ const Product = (props) => {
   let navigate = useNavigate();
 
   const initialProductState = {
-    id: null,
     title: "",
     description: "",
     published: false
@@ -22,7 +21,14 @@ const Product = (props) => {
   const getProduct = id => {
     ProductDataService.get(id)
       .then(response => {
-        setCurrentProduct(response.data);
+        if(response.data){
+          const { title, description } = response.data;
+
+          setCurrentProduct({
+            title,
+            description
+          });
+        }
       })
       .catch(e => {
         console.log(e);
@@ -41,7 +47,6 @@ const Product = (props) => {
 
   const updateStatus = status => {
     const data = {
-      id: currentProduct.id,
       title: currentProduct.title,
       description: currentProduct.description,
       published: status
@@ -60,7 +65,7 @@ const Product = (props) => {
   };
 
   const updateContent = () => {
-    dispatch(updateProduct({ id: currentProduct.id, data: currentProduct }))
+    dispatch(updateProduct({ id: id, data: currentProduct }))
       .unwrap()
       .then(response => {
         console.log(response);
