@@ -25,7 +25,8 @@ const removeAll = () => {
 };
 
 const findByTitle = title => {
-  return http.get(`/products?title=${title}`);
+  console.log(2333, title);
+  return http.get(`/products/search?q=${title}`);
 };
 
 const ProductsService = {

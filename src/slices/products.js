@@ -78,7 +78,7 @@ const ProductSlice = createSlice({
       return [];
     },
     [findProductsByTitle.fulfilled]: (state, action) => {
-      return [...action.payload];
+      state.productList = { ...action.payload };
     },
   },
 });
